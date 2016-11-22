@@ -10,12 +10,13 @@ import {
 } from 'react-native';
 
 var LoginView = require('./loginview')
+var ScrollViewDemo = require('./scrollviewdemo')
 var ThemeMainView = require('./thememain')
 
 export default class untitled_rn1 extends Component {
   render() {
     return (
-      <LoginView/>
+      <ScrollViewDemo/>
     );
   }
 }
