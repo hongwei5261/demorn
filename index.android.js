@@ -13,10 +13,12 @@ var LoginView = require('./loginview')
 var ScrollViewDemo = require('./scrollviewdemo')
 var ThemeMainView = require('./thememain')
 
+var Test = require('./test')
+
 export default class untitled_rn1 extends Component {
   render() {
     return (
-      <ScrollViewDemo/>
+      <ThemeMainView/>
     );
   }
 }

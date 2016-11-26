@@ -11,27 +11,36 @@ import {
     Text,
     View,
     ListView,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
+    ToastAndroid,
 } from 'react-native';
 
 var Dimensions = require('Dimensions')
 var {width} = Dimensions.get('window')
+var itemWidth = width / 2;
+
+var imgs = [require('./img/img1.jpg'),
+    require('./img/img2.jpg'),
+    require('./img/img3.jpg'),
+    require('./img/img4.jpg'),
+    require('./img/img5.jpg'),
+    require('./img/img6.jpg'), ]
 
 export default class thememain extends Component {
     constructor(props) {
         super(props)
         const ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         this.state = {
-            dataSource:ds.cloneWithRows(['1111111111', '1111111111', '1111111111', '1111111111', '1111111111', '1111111111'])
+            dataSource:ds.cloneWithRows(require('./themes.json'))
         };
     }
 
-    renderRow(rowData,sectionId,rowId,hItemId){
+    _renderRow(rowData, sectionId, rowId, hItemId){
         return(
-            <TouchableOpacity
-                style={styles.itemViewStyle}
-            >
-                <View style={styles.itemViewStyle}>
+            <TouchableOpacity  style={styles.itemViewStyle} activeOpacity={0.5} onPress={() => {ToastAndroid.show('row:' + rowId, ToastAndroid.SHORT)}}>
+                <View>
+                    <Image source={imgs[rowId]} style={{width:30, height:30}}/>
                     <Text style={{backgroundColor:'red'}}>{rowData.title}</Text>
                 </View>
             </TouchableOpacity>
@@ -40,34 +49,33 @@ export default class thememain extends Component {
 
     render() {
         return (
-            <View>
-                <View style={{flexDirection:'row'}}>
-                    <Text style={styles.navigation}>
+            <View style={{flex:1}}>
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <Text style={[styles.navigation, {backgroundColor:'red'}]}>
                         Wallpapers
                     </Text>
-                    <Text style={styles.navigation}>
+                    <Text style={[styles.navigation, {backgroundColor:'#ff00ff'}]}>
                         Themes
                     </Text>
                 </View>
 
-                <View style={{flexDirection:'row', backgroundColor:'#ffff00'}}>
+                <View style={{flexDirection:'row', backgroundColor:'#ffff00', marginTop:10, alignItems:'center'}}>
                     <Text style={{color:'red'}}>
                         Recommend
                     </Text>
-                    <Text style={{color:'greed'}}>
+                    <Text style={{ position:'absolute', right:0}}>
                         All Themes
                     </Text>
                 </View>
+                <Image source={{url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2574774309,856884605&fm=58&s=7A61F148D883984908165216030050DF'}}/>
 
-                <ListView dataSource={this.state.dataSource}
-                          renderRow={this.renderRow}>
-                </ListView>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                    contentContainerStyle={{flexDirection:'row', flexWrap:'wrap', flex:1}}
+                    />
             </View>
         );
-    }
-
-    renderRow2(rowData) {
-        <Text>{rowData}</Text>
     }
 }
 
@@ -80,15 +88,18 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     navigation: {
-        fontSize: 20,
-        // textAlign: 'center',
-        margin: 10,
         flex:1,
+        fontSize:20,
+        alignItems:'center',
+        textAlign:'center',
+        paddingTop:10,
+        paddingBottom:10
     },
     itemViewStyle: {
         alignItems:'center',
-        width:width / 3,
-        height:100,
+        width:itemWidth,
+        height:80,
+        backgroundColor:'yellow'
     },
     instructions: {
         // textAlign: 'center',
