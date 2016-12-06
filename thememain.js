@@ -26,8 +26,10 @@ var imgs = [require('./img/img1.jpg'),
     require('./img/img4.jpg'),
     require('./img/img5.jpg'),
     require('./img/img6.jpg'), ]
+var uri = 'http://api.ziwatek.com/v1/themes?l=zh&dip=xxhdpi&ch=2b-2b-VSUN-VSUNILLUSION&v=2b8db7d0&u=&e=1&g=0&p=1&n=6&s=title&o=ASC'
 
 export default class thememain extends Component {
+
     constructor(props) {
         super(props)
         const ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -36,15 +38,35 @@ export default class thememain extends Component {
         };
     }
 
-    _renderRow(rowData, sectionId, rowId, hItemId){
-        return(
-            <TouchableOpacity  style={styles.itemViewStyle} activeOpacity={0.5} onPress={() => {ToastAndroid.show('row:' + rowId, ToastAndroid.SHORT)}}>
-                <View>
-                    <Image source={imgs[rowId]} style={{width:30, height:30}}/>
-                    <Text style={{backgroundColor:'red'}}>{rowData.title}</Text>
-                </View>
-            </TouchableOpacity>
-        )
+    componentDidMount() {
+        this._loadThemesData();
+    }
+
+    _loadThemesData() {
+        fetch(uri)
+            .then((response)=>response.json())
+            .then((responseData)=>{
+                var responseJson = responseData['result'];
+                // alert(responseJson);
+                this._dealWithData(responseJson);
+            })
+            .catch((error)=>{
+                if (error) {
+                    alert(error)
+                }
+            })
+    }
+
+    _dealWithData(responseJson) {
+        var dataArrs = [];
+
+        for(var i = 0; i < responseJson.length; i++) {
+            dataArrs.push(responseJson[i]);
+        }
+
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(dataArrs)
+        })
     }
 
     render() {
@@ -67,7 +89,9 @@ export default class thememain extends Component {
                         All Themes
                     </Text>
                 </View>
-                <Image source={{url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2574774309,856884605&fm=58&s=7A61F148D883984908165216030050DF'}}/>
+                <Image source={{uri:'https://facebook.github.io/react/img/logo_og.png'}}
+                       style={{width: 30, height: 30}}/>
+                <Image source={imgs[1]}/>
 
                 <ListView
                     dataSource={this.state.dataSource}
@@ -76,6 +100,18 @@ export default class thememain extends Component {
                     />
             </View>
         );
+    }
+
+
+    _renderRow(rowData, sectionId, rowId, hItemId){
+        return(
+            <TouchableOpacity  style={styles.itemViewStyle} activeOpacity={0.5} onPress={() => {ToastAndroid.show('row:' + rowId, ToastAndroid.SHORT)}}>
+                <View>
+                    <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} style={{width:60, height:60}}/>
+                    <Text style={{backgroundColor:'red'}}>{rowData.title}</Text>
+                </View>
+            </TouchableOpacity>
+        )
     }
 }
 
