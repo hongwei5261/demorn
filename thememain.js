@@ -92,6 +92,7 @@ export default class thememain extends Component {
                 <Image source={{uri:'https://facebook.github.io/react/img/logo_og.png'}}
                        style={{width: 30, height: 30}}/>
                 <Image source={imgs[1]}/>
+                <Image source={imgs[1]}/>
 
                 <ListView
                     dataSource={this.state.dataSource}
