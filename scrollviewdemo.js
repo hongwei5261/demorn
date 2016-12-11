@@ -19,6 +19,9 @@ var {width} = Dimensions.get('window')
 
 // export default class scrollviewdemo extends Component {
 var scrollviewdemo = React.createClass({
+    getDefaultProps() {
+
+    },
 
     getInitialState(){
         return {

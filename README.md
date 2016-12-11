@@ -16,3 +16,10 @@ loginview.js qq登陆页面demo
 > react-native bundle --entry-file index.android.js --bundle-output ./bundle/androidBundle/index.android.jsbundle --platform android --assets-dest ./bundle/androidBundle/ --dev false
 
 3.保证MainActivity.Java中的setBundleAssetName与你的jsbundle文件名一致，比如.setBundleAssetName(“index.android.jsbundle”)就与我生成的资源名一致
+
+##代码提交命令
+> git add .
+
+> git commit -m "fix commit"
+
+> git push origin master

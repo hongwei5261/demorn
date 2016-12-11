@@ -12,7 +12,7 @@ import {
     View
 } from 'react-native';
 
-export default class test extends Component {
+var test = React.createClass({
     render() {
         return (
             <View style={styles.container}>
@@ -29,7 +29,7 @@ export default class test extends Component {
             </View>
         );
     }
-}
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -49,8 +49,5 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
-
-AppRegistry.registerComponent('untitled_rn1', () => untitled_rn1);
-
 
 module.exports = test

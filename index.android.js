@@ -12,6 +12,7 @@ import {
 var LoginView = require('./loginview')
 var ScrollViewDemo = require('./scrollviewdemo')
 var ThemeMainView = require('./thememain')
+var Wallpapers = require('./wallpapers')
 
 var Test = require('./test')
 
